@@ -1,0 +1,222 @@
+---
+title: Predict | Wallets
+---
+extends layouts/_layout
+block content
+	.page
+		+sidebar('', '', '', 'active')
+		.page__content
+			+header
+			.wallets
+				.wallets__container
+					.wallets__wrapper
+						.wallets__row
+							.wallets__total
+								.wallets__title.h6 Total Balance
+								.wallets__flex
+									.wallets__number.h3 0.26231428
+									.wallets__currency BTC
+								.wallets__price.h5.color-gray 3,700.96 USD
+							.wallets__group
+								.wallets__box
+									.wallets__info Exchange Balance
+									.wallets__progress.bg-purple(style="width: 65%;")
+								.wallets__box
+									.wallets__info Asset Balances
+									.wallets__progress.bg-blue(style="width: 100%;")
+						.wallets__inner
+							.wallets__list
+								.wallets__item
+									.wallets__icon
+										img(src="img/circle-purple.svg" alt="")
+									.wallets__details
+										.wallets__info Exchange Balance
+										.wallets__number.h6 0.256567545 BTC
+										.wallets__price 3,700.96 USD
+								.wallets__item
+									.wallets__icon
+										img(src="img/circle-blue.svg" alt="")
+									.wallets__details
+										.wallets__info Asset Balances
+										.wallets__number.h6 0.256567545 BTC
+										.wallets__price 3,700.96 USD
+						.wallets__btns
+							button.wallets__btn.btn.btn_blue
+								+i('withdraw')
+								span.btn__text Withdraw
+							button.wallets__btn.btn.btn_border
+								+i('deposit')
+								span.btn__text Deposit
+			.activity
+				.activity__container
+					.activity__stage.h6.mobile-show History
+					.activity__sorting
+						.activity__select.tablet-show
+							select.select
+								option All
+								option Withdrawals
+								option Deposit
+								option Bank Withdraws
+						.activity__tags.tablet-hide
+							a.activity__link.active(href="#") All
+							a.activity__link(href="#") Withdrawals
+							a.activity__link(href="#") Deposit
+							a.activity__link(href="#") Bank Withdraws
+						.activity__select
+							.activity__icon
+								+i('calendar')
+							select.select
+								option All Time
+								option This past week
+								option This Past Month
+								option This Past Year
+					.activity__stage.h6.mobile-hide History
+					.activity__table
+						.activity__row.activity__row_head
+							.activity__cell
+							.activity__cell TYPE
+							.activity__cell DATE
+							.activity__cell AMOUNT <span class="activity__hidden">/ DATE</span>
+							.activity__cell ADDRESS / TRANSACTION ID
+						mixin activityRow(status, src, name, price)
+							.activity__row
+								.activity__cell
+									if status
+										.activity__size
+											img(src="img/size-max.svg" alt="")
+									else
+										.activity__size
+											img(src="img/size-min.svg" alt="")
+								.activity__cell
+									.activity__company
+										.activity__logo
+											img(src=src alt="")
+										.activity__name=name
+								.activity__cell
+									.activity__date Jan 17th, 2020 10:56:41
+								.activity__cell
+									.activity__price=price
+									.activity__date.activity__hidden Jan 17th, 2020 10:56:41
+								.activity__cell
+									.activity__address Zja7BQo782QanKv4so
+									.activity__transaction JHAEIF6374NXY3484748949
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+						+activityRow(false, 'img/logo/logo-t.png', 'Deposited USDT', '5342.000000 USDT')
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+						+activityRow(false, 'img/logo/logo-t.png', 'Deposited USDT', '5342.000000 USDT')
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+						+activityRow(false, 'img/logo/logo-t.png', 'Deposited USDT', '5342.000000 USDT')
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+						+activityRow(false, 'img/logo/logo-t.png', 'Deposited USDT', '5342.000000 USDT')
+						+activityRow(true, 'img/logo/ethereum.png', 'Withdraw ETH', '0.12340000 USDT')
+					+more
+				
+				.wallets__sidebar
+					.wallets__wrap
+						button.wallets__close
+							+i('close')
+						.wallets__head
+							.wallets__logo
+								img(src="img/logo/ethereum.png" alt="")
+							.wallets__details
+								.wallets__info ETH Balance
+								.wallets__company Ethereum
+						.wallets__body
+							.wallets__line
+								.wallets__money 24.1236
+								.wallets__currency ETH
+							.wallets__code 3,700.96 USD
+							.wallets__parameters
+								.wallets__parameter
+									.wallets__preview.bg-purple
+										img(src="img/bitcoin.svg" alt="")
+									.wallets__box
+										.wallets__category Trading account
+										.wallets__number.h6 0.256567545 BTC
+										.wallets__price 3,700.96 USD
+								.wallets__parameter
+									.wallets__preview.bg-blue
+										img(src="img/hand-coin.svg" alt="")
+									.wallets__box
+										.wallets__category Total holdings
+										.wallets__number.h6 0.256567545 BTC
+										.wallets__price 3,700.96 USD
+							.card
+								.card__head
+									.card__title.h6 24h Markets
+									+dropdown('24h Markets', '16h Markets', '8h Markets', '4h Markets')
+								.widgets
+									mixin widgetsBox(category, info, status, price, idName)
+										.widgets__box
+											.widgets__top
+												.widgets__company
+													.widgets__details
+														.widgets__category=category 
+														.widgets__info=info 
+												.widgets__group
+													if status
+														.status.positive +2.05%
+													else
+														.status.negative -2.73%
+													.widgets__price=price 
+											.widgets__chart
+												div(id=idName)
+									+widgetsBox('Ethereum', 'ETH', true, '18,245.4 USD', 'spark-1')
+								.card__btns.card__btns_mt40
+									button.card__btn.btn.btn_blue
+										+i('withdraw')
+										span.btn__text Withdraw
+									button.card__btn.btn.btn_border
+										+i('deposit')
+										span.btn__text Deposit
+						.operations
+							form.operations__form
+								.operations__field.field.js-field
+									.field__label ADDRESS
+										+i('info-square')
+									.field__wrap
+										input.field__input.js-field-input(type="text")
+								.operations__balance
+									.operations__label AVAILABLE BALANCE
+									.operations__counter 0.12366588 ETH
+									.operations__price $10,224.546 USD
+								.operations__action
+									.operations__field.field.js-field
+										.field__label AMOUNT TO WITHDRAW
+											span.field__max Max Amount
+										.field__wrap
+											input.field__input.js-field-input(type="tel")
+									.operations__note $1,000,000.00 daily withdrawal limit.
+								.operations__field.field.js-field
+									.field__label TRANSACTION FEE
+										+i('info-square')
+									.field__wrap
+										input.field__input.js-field-input(type="text")
+								.operations__field.field.js-field
+									.field__label TOTAL
+									.field__wrap
+										input.field__input.js-field-input(type="text")
+								button.operations__btn.btn.btn_blue.btn_wide Withdraw
+							.operations__wrap
+								.operations__item
+									.operations__flex
+										.operations__title Total Balance
+										.operations__box
+											.operations__counter 24.1236
+											.operations__price 3,700.96 USD
+								.operations__item
+									.operations__title Address
+									.operations__text <strong>Only send ETH to this address.</strong> Sending any other asset to this address may result in the loss of your deposit!
+									.operations__code
+										input.operations__input(type="text" value="KJ65FJEOW874KUSH11KDA")
+										button.operations__copy
+											+i('copy')
+									.operations__preview
+										img(src="img/qr-code.png" alt="")
+								.operations__info <a href="#">Ethereum</a> deposits are available after 2 network confirmations.
+
+
+
+
+
